@@ -1,0 +1,113 @@
+<apex:page Controller="DataTableExampleController" readOnly="true">
+    <head>
+        <apex:includescript value="//code.jquery.com/jquery-1.12.3.js" / >
+        <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />     
+        <apex:includescript value="//cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js" /> 
+        <apex:includescript value="//cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js" /> 
+        <apex:includescript value="//editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js  " 
+
+/>
+        
+        <apex:stylesheet value="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+         <apex:stylesheet value="//cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css" />
+         <apex:stylesheet value="//cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css" />
+          <apex:stylesheet value="//editor.datatables.net/extensions/Editor/css/editor.dataTables.min.css" 
+
+/>
+           <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />      
+        <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+            editor = new $.fn.dataTable.Editor( {
+        ajax: function ( method, url, d, successCallback, errorCallback ) {
+            var output = { data: [] };
+ 
+            if ( d.action === 'create' ) {               
+                $.each( d.data, function (key, value) {                   
+                   // value.DT_RowId = id;
+                   // output.data.push( value );
+                } );
+            }
+            else if ( d.action === 'edit' ) {
+                // Update each edited item with the data submitted
+                $.each( d.data, function (id, value) {
+                    //value.DT_RowId = id;
+                    //output.data.push( todo[ id ] );
+                } );
+            }
+            else if ( d.action === 'remove' ) {
+                // Remove items from the object
+                $.each( d.data, function (id) {
+                    //delete todo[ id ];
+                } );
+            }
+ 
+            // Store the latest `todo` object for next reload
+            localStorage.setItem( 'todo', JSON.stringify(todo) );
+ 
+            // Show Editor what has changed
+            successCallback( output );
+        } 
+     ,
+        table: "#producttable",
+        fields: [ {
+                label: "Name:",
+                name: "Product.Name"
+            }, {
+                label: "Price:",
+                name: "Product.Price__c"
+            }, {
+                label: "Type:",
+                name: "Product.Type__c"
+            }, {
+                label: "Amount:",
+                name: "Product.Amount__c"
+            }, {
+                label: "Date Added:",
+                name: "Product.Date_Added__c"
+            }, {
+                label: "Release Date:",
+                name: "Product.Release_Date__c",
+                type: "datetime"
+            }, {
+                label: "Available:",
+                name: "Product.Available__c"
+            }
+        ]
+    } );
+           // var productTable = j$('#producttable').DataTable({
+               // });
+            });
+        </script>
+    </head>
+    <body>
+        <table id="producttable" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date Added</th>
+                    <th>Release Date</th> 
+                    <th>Available</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!productList}" var="Product">
+                    <tr>
+                        <td>{!Product.Name}</td>
+                        <td>{!Product.Price__c}</td>
+                        <td>{!Product.Type__c}</td>
+                        <td>{!Product.Amount__c}</td>
+                        <td>{!Product.Date_Added__c}</td>
+                        <td>{!Product.Release_Date__c}</td>
+                        <td>{!Product.Available__c}</td>                                               
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </body>
+</apex:page>
+        
+        

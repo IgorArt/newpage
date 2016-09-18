@@ -1,0 +1,62 @@
+<apex:page controller="ProductController" >
+
+    <style type="text/css">
+        table#ProductTable {border-collapse: collapse;}
+        table#ProductTable td, table#ProductTable th {padding: 10px; border: 1px solid #888888;}
+    </style>
+
+    <h1>Products</h1>
+
+    <apex:form >
+
+        <apex:inputText value="{!SearchProductKeyword}" />
+        <apex:commandButton value="Search" rerender="ProductTableBox" status="SearchStatus"/>
+        <apex:actionStatus id="SearchStatus">
+            <apex:facet name="start"><img src="/img/loading.gif" alt="" /></apex:facet>
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionStatus>
+
+        <!-- html method  -->
+        <apex:outputPanel layout="block" id="ProductTableBox">
+            <table id="ProductTable">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date Added</th>
+                    <th>Release Date</th>                   
+                </tr>
+                <apex:repeat value="{!Products}" var="Product">
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!Product.Name}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Price__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Type__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Amount__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Date_Added__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Release_Date__c}"/>
+                        </td>                       
+                        
+                        <td>
+                            <a href="#">Edit</a><br />
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+        </apex:outputPanel>
+
+    </apex:form>
+
+</apex:page>

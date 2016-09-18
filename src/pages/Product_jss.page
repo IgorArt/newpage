@@ -1,0 +1,44 @@
+<apex:page Controller="DataTableExampleController" readOnly="true">
+    <head>
+        <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+        <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+        <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+        <script>
+            j$ = jQuery.noConflict();
+            j$(document).ready( function () {
+                var productTable = j$('[id$="producttable"]').DataTable({
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <table id="producttable" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date Added</th>
+                    <th>Release Date</th> 
+                    <th>Available</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!productList}" var="Product">
+                    <tr>
+                        <td>{!Product.Name}</td>
+                        <td>{!Product.Price__c}</td>
+                        <td>{!Product.Type__c}</td>
+                        <td>{!Product.Amount__c}</td>
+                        <td>{!Product.Date_Added__c}</td>
+                        <td>{!Product.Release_Date__c}</td>
+                        <td>{!Product.Available__c}</td>
+                        
+                        
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </body>
+</apex:page>

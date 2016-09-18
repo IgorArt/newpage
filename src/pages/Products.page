@@ -1,0 +1,69 @@
+<apex:page controller="ProductController" >
+    <style type="text/css">
+    table#ProductTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+    table#ProductTable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+    table#ProductTable tr {background-color:#d4e3e5;}
+    table#ProductTable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+    table#ProductTable tr:hover {background-color:#ffffff;}
+    </style>
+
+    <h1>Products</h1>
+
+    <apex:form >
+
+        <apex:inputText value="{!SearchProductKeyword}" />
+        <apex:commandButton value="Search" rerender="ProductTableBox" status="SearchStatus"/>
+        <apex:actionStatus id="SearchStatus">
+            <apex:facet name="start"><img src="/img/loading.gif" alt="" /></apex:facet>
+            <apex:facet name="stop"></apex:facet>
+        </apex:actionStatus>
+
+        <!-- html method  -->
+        <apex:outputPanel layout="block" id="ProductTableBox">
+            <table id="ProductTable">             
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date Added</th>
+                    <th>Release Date</th> 
+                    <th>Available</th>
+                    <th>Change</th>                 
+                </tr>                
+                <apex:repeat value="{!Products}" var="Product">
+                    <tr>
+                        <td>
+                            <apex:outputField value="{!Product.Name}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Price__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Type__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Amount__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Date_Added__c}"/>
+                        </td>
+                        <td>
+                            <apex:outputField value="{!Product.Release_Date__c}"/>
+                        </td> 
+                        <td>
+                            <apex:outputField value="{!Product.Available__c}"/>
+                        </td>                         
+                        
+                        <td>
+                            <a href="#">Edit</a><br />
+                            <a href="#">Delete</a>
+                        </td>
+                    </tr>
+                </apex:repeat>                
+            </table>
+        </apex:outputPanel>
+
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,97 @@
+<apex:component controller = "Pro_ComponentClass" allowDML="true"><!--Allow DML Operations In Component-->
+     
+    <style type = "text/css">/* Write The Required CSS */     
+        .container_eval{
+            position: fixed;
+            top: 170px;
+            left: 285px;
+            border:1px solid #C3CAD0;           
+        }
+        .addHeader{     
+            background-color: #316E9C;
+            color: #FFFFFF;
+            padding:10px;
+            font-size: 20px;
+            font-weight: 500;
+            box-sizing: border-box;
+            position: relative;     
+        }       
+        .close{         
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: transparent;        
+        }
+        .accForm{       
+            background-color: #FFFFFF;
+            padding: 10px;
+            box-sizing: border-box;     
+        }
+        .label_eval{        
+            font-size: 15px;
+            margin-right: 10px;
+            font-weight: 600;
+            width: 124px;
+            display: inline-block;      
+        }       
+        .input_eval{        
+            margin-right: 20px;
+            margin-bottom: 10px;
+            height: 30px;
+            width: 140px;
+            padding:5px;
+            border: 1px solid;
+            border-radius: 5px;
+            background-color: #FFFFFF;      
+        }
+        .AddBtn{        
+            text-align: center;
+            margin: 10px 0;
+        }       
+        .btn.AddBtn_eval{       
+            background: #89C47F;
+            color: #FFFFFF;
+            padding: 8px;
+            font-size: 20px;
+            border: none;       
+        }       
+        .btn.btn_add{       
+            padding:0px;
+            border:none;        
+        }   
+    </style>
+     
+    <apex:form><!-- Form For Inserting New Account -->
+        <table>
+            <tbody>   
+                <tr>              
+                    <td><apex:outputlabel value = "Name" styleclass = "label_eval"/></td>
+                    <td><apex:inputtext value= "{!Product.Name}" styleclass = "input_eval" id = "Val_Name"/></td>                     
+                    <td><apex:outputlabel value = "Price" styleclass = "label_eval"/></td>
+                    <td><apex:inputtext value= "{!Product.Price__c}" styleclass = "input_eval"/></td>                    
+                </tr>
+                <tr>                  
+                    <td><apex:outputlabel value = "Type" styleclass = "label_eval"/></td>
+                    <td><apex:inputfield value= "{!Product.Type__c}" styleclass = "input_eval"/></td>               
+                    <td><apex:outputlabel value = "Active" styleclass = "label_eval"/></td>
+                    <td><apex:inputfield value= "{!Product.Amount__c}" styleclass = "input_eval"/></td>
+                </tr>             
+            </tbody>                                  
+        </table>      
+        <apex:outputpanel layout = "block" styleclass = "AddBtn">
+            <button type = "button" class= "btn btn_add " data-dismiss="modal" >  
+                <apex:commandbutton value = "Add" onclick = "validate(event)" styleclass = "AddBtn_eval" action = "{!savedata}" rerender = "pg" status = "mystatus"/>
+            </button>             
+        </apex:outputpanel>
+    </apex:form>  
+     
+    <script type = "text/javascript"> 
+        function validate(e){       
+            if($("[id$='Val_Name']").val()==''){            
+                e.preventDefault();
+                alert('No Row Inserted');           
+            }       
+        }   
+    </script>
+ 
+</apex:component>
